@@ -349,11 +349,11 @@ class _ReportTabState extends State<PermissionPage> {
                                                 label: 'Date and Time',
                                                 fontSize: 16,
                                                 color: Colors.white)),
-                                        DataColumn(
-                                            label: BoldText(
-                                                label: '',
-                                                fontSize: 16,
-                                                color: Colors.white)),
+                                        // DataColumn(
+                                        //     label: BoldText(
+                                        //         label: '',
+                                        //         fontSize: 16,
+                                        //         color: Colors.white)),
                                       ],
 
                                       rows: [
@@ -393,67 +393,67 @@ class _ReportTabState extends State<PermissionPage> {
                                                       fontSize: 12,
                                                       color: Colors.black),
                                                 ),
-                                                DataCell(MaterialButton(
-                                                    color: Colors.red,
-                                                    onPressed: (() {
-                                                      showDialog(
-                                                          barrierDismissible:
-                                                              false,
-                                                          context: context,
-                                                          builder: ((context) {
-                                                            return AlertDialog(
-                                                              title: const Text(
-                                                                  'Delete permission?'),
-                                                              content: const Text(
-                                                                  'This action cannot be undone.'),
-                                                              actions: <Widget>[
-                                                                TextButton(
-                                                                  child: const Text(
-                                                                      'Cancel'),
-                                                                  onPressed:
-                                                                      () {
-                                                                    Navigator.of(
-                                                                            context)
-                                                                        .pop(
-                                                                            false);
-                                                                  },
-                                                                ),
-                                                                TextButton(
-                                                                  child: const Text(
-                                                                      'Delete'),
-                                                                  onPressed:
-                                                                      () async {
-                                                                    await FirebaseFirestore
-                                                                        .instance
-                                                                        .collection(
-                                                                            'Concerns')
-                                                                        .doc(data
-                                                                            .docs[i]
-                                                                            .id)
-                                                                        .delete();
+                                                // DataCell(MaterialButton(
+                                                //     color: Colors.red,
+                                                //     onPressed: (() {
+                                                //       showDialog(
+                                                //           barrierDismissible:
+                                                //               false,
+                                                //           context: context,
+                                                //           builder: ((context) {
+                                                //             return AlertDialog(
+                                                //               title: const Text(
+                                                //                   'Delete permission?'),
+                                                //               content: const Text(
+                                                //                   'This action cannot be undone.'),
+                                                //               actions: <Widget>[
+                                                //                 TextButton(
+                                                //                   child: const Text(
+                                                //                       'Cancel'),
+                                                //                   onPressed:
+                                                //                       () {
+                                                //                     Navigator.of(
+                                                //                             context)
+                                                //                         .pop(
+                                                //                             false);
+                                                //                   },
+                                                //                 ),
+                                                //                 TextButton(
+                                                //                   child: const Text(
+                                                //                       'Delete'),
+                                                //                   onPressed:
+                                                //                       () async {
+                                                //                     await FirebaseFirestore
+                                                //                         .instance
+                                                //                         .collection(
+                                                //                             'Concerns')
+                                                //                         .doc(data
+                                                //                             .docs[i]
+                                                //                             .id)
+                                                //                         .delete();
 
-                                                                    if (!mounted) {
-                                                                      return;
-                                                                    }
-                                                                    Navigator.of(
-                                                                            context)
-                                                                        .pop(
-                                                                            true);
-                                                                  },
-                                                                ),
-                                                              ],
-                                                            );
-                                                          }));
+                                                //                     if (!mounted) {
+                                                //                       return;
+                                                //                     }
+                                                //                     Navigator.of(
+                                                //                             context)
+                                                //                         .pop(
+                                                //                             true);
+                                                //                   },
+                                                //                 ),
+                                                //               ],
+                                                //             );
+                                                //           }));
 
-                                                      // FirebaseFirestore.instance
-                                                      //     .collection('Concerns')
-                                                      //     .doc(data.docs[i].id)
-                                                      //     .delete();
-                                                    }),
-                                                    child: NormalText(
-                                                        label: 'Delete',
-                                                        fontSize: 12,
-                                                        color: Colors.white))),
+                                                //       // FirebaseFirestore.instance
+                                                //       //     .collection('Concerns')
+                                                //       //     .doc(data.docs[i].id)
+                                                //       //     .delete();
+                                                //     }),
+                                                //     child: NormalText(
+                                                //         label: 'Delete',
+                                                //         fontSize: 12,
+                                                //         color: Colors.white))),
                                               ]),
                                       ],
                                     ),

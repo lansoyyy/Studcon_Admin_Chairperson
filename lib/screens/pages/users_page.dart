@@ -2,11 +2,8 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:consultation_system/constant/colors.dart';
-import 'package:consultation_system/repositories/user_repository.dart';
-import 'package:consultation_system/services/add_user.dart';
 import 'package:consultation_system/widgets/drop_down_button.dart';
 import 'package:consultation_system/widgets/text_widget.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
@@ -14,7 +11,6 @@ import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
 
 import '../../widgets/appabr_widget.dart';
-import '../../widgets/textform_field_widget.dart';
 
 class UsersPage extends StatefulWidget {
   PageController page = PageController();
@@ -262,599 +258,599 @@ class _ReportTabState extends State<UsersPage> {
                 children: [
                   NormalText(
                       label: 'Manage Users', fontSize: 24, color: primary),
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
                   Row(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(right: 0),
-                        child: MaterialButton(
-                            height: 40,
-                            minWidth: 120,
-                            color: primary,
-                            onPressed: (() {
-                              showDialog(
-                                  context: context,
-                                  builder: ((context) {
-                                    return Dialog(
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(
-                                            right: 0, bottom: 0),
-                                        child: Container(
-                                          height: 550,
-                                          width: 400,
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(20),
-                                              color: Colors.grey[100]),
-                                          child: Padding(
-                                            padding: const EdgeInsets.fromLTRB(
-                                                30, 10, 30, 10),
-                                            child: SingleChildScrollView(
-                                              child: Form(
-                                                key: signupformKey,
-                                                child: Center(
-                                                  child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      const SizedBox(
-                                                        height: 20,
-                                                      ),
-                                                      Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
-                                                        children: [
-                                                          BoldText(
-                                                              label:
-                                                                  'Registration',
-                                                              fontSize: 18,
-                                                              color: primary),
-                                                          IconButton(
-                                                              onPressed: (() {
-                                                                Navigator.of(
-                                                                        context)
-                                                                    .pop();
-                                                              }),
-                                                              icon: const Icon(
-                                                                Icons.close,
-                                                                color:
-                                                                    Colors.red,
-                                                              ))
-                                                        ],
-                                                      ),
-                                                      NormalText(
-                                                          label:
-                                                              'Create student account',
-                                                          fontSize: 14,
-                                                          color: Colors.black),
-                                                      const SizedBox(
-                                                        height: 20,
-                                                      ),
-                                                      NormalText(
-                                                          label: 'First Name',
-                                                          fontSize: 12,
-                                                          color: Colors.black),
-                                                      TextformfieldWidget(
-                                                        label: 'First name',
-                                                        textFieldController:
-                                                            _firstNameController,
-                                                      ),
-                                                      const SizedBox(
-                                                        height: 20,
-                                                      ),
-                                                      NormalText(
-                                                          label: 'Middle Name',
-                                                          fontSize: 12,
-                                                          color: Colors.black),
-                                                      TextformfieldWidget(
-                                                        label: 'Middle Name',
-                                                        textFieldController:
-                                                            _middleNameController,
-                                                      ),
-                                                      const SizedBox(
-                                                        height: 20,
-                                                      ),
-                                                      NormalText(
-                                                          label: 'Surname',
-                                                          fontSize: 12,
-                                                          color: Colors.black),
-                                                      TextformfieldWidget(
-                                                        label: 'Surname',
-                                                        textFieldController:
-                                                            _surNameController,
-                                                      ),
-                                                      const SizedBox(
-                                                        height: 20,
-                                                      ),
-                                                      NormalText(
-                                                          label:
-                                                              'Contact Number',
-                                                          fontSize: 12,
-                                                          color: Colors.black),
-                                                      TextformfieldWidget(
-                                                        label: 'Contact Number',
-                                                        textFieldController:
-                                                            _contactNumberController,
-                                                      ),
-                                                      const SizedBox(
-                                                        height: 20,
-                                                      ),
-                                                      NormalText(
-                                                          label: 'Address',
-                                                          fontSize: 12,
-                                                          color: Colors.black),
-                                                      TextformfieldWidget(
-                                                        label: 'Address',
-                                                        textFieldController:
-                                                            addressController,
-                                                      ),
-                                                      const SizedBox(
-                                                        height: 20,
-                                                      ),
-                                                      NormalText(
-                                                          label: 'Course',
-                                                          fontSize: 12,
-                                                          color: Colors.black),
-                                                      TextformfieldWidget(
-                                                        label: 'Course',
-                                                        textFieldController:
-                                                            courseController,
-                                                      ),
-                                                      const SizedBox(
-                                                        height: 20,
-                                                      ),
-                                                      NormalText(
-                                                          label: 'Year Level',
-                                                          fontSize: 12,
-                                                          color: Colors.black),
-                                                      TextformfieldWidget(
-                                                        label: 'Year Level',
-                                                        textFieldController:
-                                                            yearController,
-                                                      ),
-                                                      const SizedBox(
-                                                        height: 20,
-                                                      ),
-                                                      NormalText(
-                                                          label: 'Email',
-                                                          fontSize: 12,
-                                                          color: Colors.black),
-                                                      TextformfieldWidget(
-                                                          isForStudentReg: true,
-                                                          prefixIcon:
-                                                              const Icon(
-                                                                  Icons.email),
-                                                          label: 'Email',
-                                                          textFieldController:
-                                                              _emailController),
-                                                      const SizedBox(
-                                                        height: 20,
-                                                      ),
-                                                      NormalText(
-                                                          label: 'Password',
-                                                          fontSize: 12,
-                                                          color: Colors.black),
-                                                      TextformfieldWidget(
-                                                          prefixIcon:
-                                                              const Icon(
-                                                                  Icons.lock),
-                                                          label: 'Password',
-                                                          textFieldController:
-                                                              _passwordController),
-                                                      const SizedBox(
-                                                        height: 50,
-                                                      ),
-                                                      Center(
-                                                        child: MaterialButton(
-                                                            minWidth: 300,
-                                                            color: primary,
-                                                            shape: RoundedRectangleBorder(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            100)),
-                                                            onPressed:
-                                                                (() async {
-                                                              if (signupformKey
-                                                                      .currentState!
-                                                                      .validate() &&
-                                                                  _emailController
-                                                                      .text
-                                                                      .contains(
-                                                                          'student.buksu.edu.ph')) {
-                                                                // AuthRepository().userSignUp(
-                                                                //     _firstNameController
-                                                                //         .text,
-                                                                //     _middleNameController
-                                                                //         .text,
-                                                                //     _surNameController
-                                                                //         .text,
-                                                                //     _contactNumberController
-                                                                //         .text,
-                                                                //     _emailController
-                                                                //         .text,
-                                                                //     _passwordController
-                                                                //         .text,
-                                                                //     '',
-                                                                //     course);
+                      // Padding(
+                      //   padding: const EdgeInsets.only(right: 0),
+                      //   child: MaterialButton(
+                      //       height: 40,
+                      //       minWidth: 120,
+                      //       color: primary,
+                      //       onPressed: (() {
+                      //         showDialog(
+                      //             context: context,
+                      //             builder: ((context) {
+                      //               return Dialog(
+                      //                 child: Padding(
+                      //                   padding: const EdgeInsets.only(
+                      //                       right: 0, bottom: 0),
+                      //                   child: Container(
+                      //                     height: 550,
+                      //                     width: 400,
+                      //                     decoration: BoxDecoration(
+                      //                         borderRadius:
+                      //                             BorderRadius.circular(20),
+                      //                         color: Colors.grey[100]),
+                      //                     child: Padding(
+                      //                       padding: const EdgeInsets.fromLTRB(
+                      //                           30, 10, 30, 10),
+                      //                       child: SingleChildScrollView(
+                      //                         child: Form(
+                      //                           key: signupformKey,
+                      //                           child: Center(
+                      //                             child: Column(
+                      //                               crossAxisAlignment:
+                      //                                   CrossAxisAlignment
+                      //                                       .start,
+                      //                               children: [
+                      //                                 const SizedBox(
+                      //                                   height: 20,
+                      //                                 ),
+                      //                                 Row(
+                      //                                   mainAxisAlignment:
+                      //                                       MainAxisAlignment
+                      //                                           .spaceBetween,
+                      //                                   children: [
+                      //                                     BoldText(
+                      //                                         label:
+                      //                                             'Registration',
+                      //                                         fontSize: 18,
+                      //                                         color: primary),
+                      //                                     IconButton(
+                      //                                         onPressed: (() {
+                      //                                           Navigator.of(
+                      //                                                   context)
+                      //                                               .pop();
+                      //                                         }),
+                      //                                         icon: const Icon(
+                      //                                           Icons.close,
+                      //                                           color:
+                      //                                               Colors.red,
+                      //                                         ))
+                      //                                   ],
+                      //                                 ),
+                      //                                 NormalText(
+                      //                                     label:
+                      //                                         'Create student account',
+                      //                                     fontSize: 14,
+                      //                                     color: Colors.black),
+                      //                                 const SizedBox(
+                      //                                   height: 20,
+                      //                                 ),
+                      //                                 NormalText(
+                      //                                     label: 'First Name',
+                      //                                     fontSize: 12,
+                      //                                     color: Colors.black),
+                      //                                 TextformfieldWidget(
+                      //                                   label: 'First name',
+                      //                                   textFieldController:
+                      //                                       _firstNameController,
+                      //                                 ),
+                      //                                 const SizedBox(
+                      //                                   height: 20,
+                      //                                 ),
+                      //                                 NormalText(
+                      //                                     label: 'Middle Name',
+                      //                                     fontSize: 12,
+                      //                                     color: Colors.black),
+                      //                                 TextformfieldWidget(
+                      //                                   label: 'Middle Name',
+                      //                                   textFieldController:
+                      //                                       _middleNameController,
+                      //                                 ),
+                      //                                 const SizedBox(
+                      //                                   height: 20,
+                      //                                 ),
+                      //                                 NormalText(
+                      //                                     label: 'Surname',
+                      //                                     fontSize: 12,
+                      //                                     color: Colors.black),
+                      //                                 TextformfieldWidget(
+                      //                                   label: 'Surname',
+                      //                                   textFieldController:
+                      //                                       _surNameController,
+                      //                                 ),
+                      //                                 const SizedBox(
+                      //                                   height: 20,
+                      //                                 ),
+                      //                                 NormalText(
+                      //                                     label:
+                      //                                         'Contact Number',
+                      //                                     fontSize: 12,
+                      //                                     color: Colors.black),
+                      //                                 TextformfieldWidget(
+                      //                                   label: 'Contact Number',
+                      //                                   textFieldController:
+                      //                                       _contactNumberController,
+                      //                                 ),
+                      //                                 const SizedBox(
+                      //                                   height: 20,
+                      //                                 ),
+                      //                                 NormalText(
+                      //                                     label: 'Address',
+                      //                                     fontSize: 12,
+                      //                                     color: Colors.black),
+                      //                                 TextformfieldWidget(
+                      //                                   label: 'Address',
+                      //                                   textFieldController:
+                      //                                       addressController,
+                      //                                 ),
+                      //                                 const SizedBox(
+                      //                                   height: 20,
+                      //                                 ),
+                      //                                 NormalText(
+                      //                                     label: 'Course',
+                      //                                     fontSize: 12,
+                      //                                     color: Colors.black),
+                      //                                 TextformfieldWidget(
+                      //                                   label: 'Course',
+                      //                                   textFieldController:
+                      //                                       courseController,
+                      //                                 ),
+                      //                                 const SizedBox(
+                      //                                   height: 20,
+                      //                                 ),
+                      //                                 NormalText(
+                      //                                     label: 'Year Level',
+                      //                                     fontSize: 12,
+                      //                                     color: Colors.black),
+                      //                                 TextformfieldWidget(
+                      //                                   label: 'Year Level',
+                      //                                   textFieldController:
+                      //                                       yearController,
+                      //                                 ),
+                      //                                 const SizedBox(
+                      //                                   height: 20,
+                      //                                 ),
+                      //                                 NormalText(
+                      //                                     label: 'Email',
+                      //                                     fontSize: 12,
+                      //                                     color: Colors.black),
+                      //                                 TextformfieldWidget(
+                      //                                     isForStudentReg: true,
+                      //                                     prefixIcon:
+                      //                                         const Icon(
+                      //                                             Icons.email),
+                      //                                     label: 'Email',
+                      //                                     textFieldController:
+                      //                                         _emailController),
+                      //                                 const SizedBox(
+                      //                                   height: 20,
+                      //                                 ),
+                      //                                 NormalText(
+                      //                                     label: 'Password',
+                      //                                     fontSize: 12,
+                      //                                     color: Colors.black),
+                      //                                 TextformfieldWidget(
+                      //                                     prefixIcon:
+                      //                                         const Icon(
+                      //                                             Icons.lock),
+                      //                                     label: 'Password',
+                      //                                     textFieldController:
+                      //                                         _passwordController),
+                      //                                 const SizedBox(
+                      //                                   height: 50,
+                      //                                 ),
+                      //                                 Center(
+                      //                                   child: MaterialButton(
+                      //                                       minWidth: 300,
+                      //                                       color: primary,
+                      //                                       shape: RoundedRectangleBorder(
+                      //                                           borderRadius:
+                      //                                               BorderRadius
+                      //                                                   .circular(
+                      //                                                       100)),
+                      //                                       onPressed:
+                      //                                           (() async {
+                      //                                         if (signupformKey
+                      //                                                 .currentState!
+                      //                                                 .validate() &&
+                      //                                             _emailController
+                      //                                                 .text
+                      //                                                 .contains(
+                      //                                                     'student.buksu.edu.ph')) {
+                      //                                           // AuthRepository().userSignUp(
+                      //                                           //     _firstNameController
+                      //                                           //         .text,
+                      //                                           //     _middleNameController
+                      //                                           //         .text,
+                      //                                           //     _surNameController
+                      //                                           //         .text,
+                      //                                           //     _contactNumberController
+                      //                                           //         .text,
+                      //                                           //     _emailController
+                      //                                           //         .text,
+                      //                                           //     _passwordController
+                      //                                           //         .text,
+                      //                                           //     '',
+                      //                                           //     course);
 
-                                                                await FirebaseAuth
-                                                                    .instance
-                                                                    .createUserWithEmailAndPassword(
-                                                                        email: _emailController
-                                                                            .text
-                                                                            .trim(),
-                                                                        password: _passwordController
-                                                                            .text
-                                                                            .trim())
-                                                                    .then(
-                                                                        (value) async {
-                                                                  addUser(
-                                                                      '${_firstNameController.text} ${_surNameController.text}',
-                                                                      _contactNumberController
-                                                                          .text,
-                                                                      addressController
-                                                                          .text,
-                                                                      courseController
-                                                                          .text,
-                                                                      yearController
-                                                                          .text,
-                                                                      _emailController
-                                                                          .text,
-                                                                      value
-                                                                          .user!
-                                                                          .uid);
-                                                                });
+                      //                                           await FirebaseAuth
+                      //                                               .instance
+                      //                                               .createUserWithEmailAndPassword(
+                      //                                                   email: _emailController
+                      //                                                       .text
+                      //                                                       .trim(),
+                      //                                                   password: _passwordController
+                      //                                                       .text
+                      //                                                       .trim())
+                      //                                               .then(
+                      //                                                   (value) async {
+                      //                                             addUser(
+                      //                                                 '${_firstNameController.text} ${_surNameController.text}',
+                      //                                                 _contactNumberController
+                      //                                                     .text,
+                      //                                                 addressController
+                      //                                                     .text,
+                      //                                                 courseController
+                      //                                                     .text,
+                      //                                                 yearController
+                      //                                                     .text,
+                      //                                                 _emailController
+                      //                                                     .text,
+                      //                                                 value
+                      //                                                     .user!
+                      //                                                     .uid);
+                      //                                           });
 
-                                                                Navigator.of(
-                                                                        context)
-                                                                    .pop();
-                                                                _firstNameController
-                                                                    .clear();
-                                                                _middleNameController
-                                                                    .clear();
-                                                                _surNameController
-                                                                    .clear();
-                                                                addressController
-                                                                    .clear();
-                                                                _contactNumberController
-                                                                    .clear();
-                                                                _emailController
-                                                                    .clear();
-                                                                _passwordController
-                                                                    .clear();
-                                                                courseController
-                                                                    .clear();
-                                                                ScaffoldMessenger.of(
-                                                                        context)
-                                                                    .showSnackBar(
-                                                                  const SnackBar(
-                                                                    duration: Duration(
-                                                                        seconds:
-                                                                            5),
-                                                                    content: Text(
-                                                                        'Student Registered Succesfully!'),
-                                                                  ),
-                                                                );
-                                                              }
+                      //                                           Navigator.of(
+                      //                                                   context)
+                      //                                               .pop();
+                      //                                           _firstNameController
+                      //                                               .clear();
+                      //                                           _middleNameController
+                      //                                               .clear();
+                      //                                           _surNameController
+                      //                                               .clear();
+                      //                                           addressController
+                      //                                               .clear();
+                      //                                           _contactNumberController
+                      //                                               .clear();
+                      //                                           _emailController
+                      //                                               .clear();
+                      //                                           _passwordController
+                      //                                               .clear();
+                      //                                           courseController
+                      //                                               .clear();
+                      //                                           ScaffoldMessenger.of(
+                      //                                                   context)
+                      //                                               .showSnackBar(
+                      //                                             const SnackBar(
+                      //                                               duration: Duration(
+                      //                                                   seconds:
+                      //                                                       5),
+                      //                                               content: Text(
+                      //                                                   'Student Registered Succesfully!'),
+                      //                                             ),
+                      //                                           );
+                      //                                         }
 
-                                                              // Navigator.of(context).push(MaterialPageRoute(
-                                                              //     builder: (context) => LoginPage()));
-                                                            }),
-                                                            child: Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                      .all(8.0),
-                                                              child: NormalText(
-                                                                  label:
-                                                                      'Register Student',
-                                                                  fontSize: 24,
-                                                                  color: Colors
-                                                                      .white),
-                                                            )),
-                                                      ),
-                                                      const SizedBox(
-                                                        height: 30,
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    );
-                                  }));
-                            }),
-                            child: NormalText(
-                                label: 'Add Student',
-                                fontSize: 12,
-                                color: Colors.white)),
-                      ),
+                      //                                         // Navigator.of(context).push(MaterialPageRoute(
+                      //                                         //     builder: (context) => LoginPage()));
+                      //                                       }),
+                      //                                       child: Padding(
+                      //                                         padding:
+                      //                                             const EdgeInsets
+                      //                                                 .all(8.0),
+                      //                                         child: NormalText(
+                      //                                             label:
+                      //                                                 'Register Student',
+                      //                                             fontSize: 24,
+                      //                                             color: Colors
+                      //                                                 .white),
+                      //                                       )),
+                      //                                 ),
+                      //                                 const SizedBox(
+                      //                                   height: 30,
+                      //                                 ),
+                      //                               ],
+                      //                             ),
+                      //                           ),
+                      //                         ),
+                      //                       ),
+                      //                     ),
+                      //                   ),
+                      //                 ),
+                      //               );
+                      //             }));
+                      //       }),
+                      //       child: NormalText(
+                      //           label: 'Add Student',
+                      //           fontSize: 12,
+                      //           color: Colors.white)),
+                      // ),
+                      // const SizedBox(
+                      //   width: 20,
+                      // ),
+                      // Padding(
+                      //   padding: const EdgeInsets.only(right: 50),
+                      //   child: MaterialButton(
+                      //       height: 40,
+                      //       minWidth: 120,
+                      //       color: primary,
+                      //       onPressed: (() {
+                      //         showDialog(
+                      //             context: context,
+                      //             builder: ((context) {
+                      //               return Dialog(
+                      //                 child: Padding(
+                      //                   padding: const EdgeInsets.only(
+                      //                       right: 0, bottom: 0),
+                      //                   child: Container(
+                      //                     height: 550,
+                      //                     width: 400,
+                      //                     decoration: BoxDecoration(
+                      //                         borderRadius:
+                      //                             BorderRadius.circular(20),
+                      //                         color: Colors.grey[100]),
+                      //                     child: Padding(
+                      //                       padding: const EdgeInsets.fromLTRB(
+                      //                           30, 10, 30, 10),
+                      //                       child: SingleChildScrollView(
+                      //                         child: Form(
+                      //                           key: signupformKey,
+                      //                           child: Center(
+                      //                             child: Column(
+                      //                               crossAxisAlignment:
+                      //                                   CrossAxisAlignment
+                      //                                       .start,
+                      //                               children: [
+                      //                                 const SizedBox(
+                      //                                   height: 20,
+                      //                                 ),
+                      //                                 Row(
+                      //                                   mainAxisAlignment:
+                      //                                       MainAxisAlignment
+                      //                                           .spaceBetween,
+                      //                                   children: [
+                      //                                     BoldText(
+                      //                                         label:
+                      //                                             'Registration',
+                      //                                         fontSize: 18,
+                      //                                         color: primary),
+                      //                                     IconButton(
+                      //                                         onPressed: (() {
+                      //                                           Navigator.of(
+                      //                                                   context)
+                      //                                               .pop();
+                      //                                         }),
+                      //                                         icon: const Icon(
+                      //                                           Icons.close,
+                      //                                           color:
+                      //                                               Colors.red,
+                      //                                         ))
+                      //                                   ],
+                      //                                 ),
+                      //                                 const SizedBox(
+                      //                                   height: 10,
+                      //                                 ),
+                      //                                 NormalText(
+                      //                                     label:
+                      //                                         'Create instructor account',
+                      //                                     fontSize: 14,
+                      //                                     color: Colors.black),
+                      //                                 const SizedBox(
+                      //                                   height: 20,
+                      //                                 ),
+                      //                                 NormalText(
+                      //                                     label: 'First Name',
+                      //                                     fontSize: 12,
+                      //                                     color: Colors.black),
+                      //                                 TextformfieldWidget(
+                      //                                   label: 'First name',
+                      //                                   textFieldController:
+                      //                                       _firstNameController,
+                      //                                 ),
+                      //                                 NormalText(
+                      //                                     label: 'Middle Name',
+                      //                                     fontSize: 12,
+                      //                                     color: Colors.black),
+                      //                                 const SizedBox(
+                      //                                   height: 20,
+                      //                                 ),
+                      //                                 TextformfieldWidget(
+                      //                                   label: 'Middle Name',
+                      //                                   textFieldController:
+                      //                                       _middleNameController,
+                      //                                 ),
+                      //                                 const SizedBox(
+                      //                                   height: 20,
+                      //                                 ),
+                      //                                 NormalText(
+                      //                                     label: 'Surname',
+                      //                                     fontSize: 12,
+                      //                                     color: Colors.black),
+                      //                                 TextformfieldWidget(
+                      //                                   label: 'Surname',
+                      //                                   textFieldController:
+                      //                                       _surNameController,
+                      //                                 ),
+                      //                                 const SizedBox(
+                      //                                   height: 20,
+                      //                                 ),
+                      //                                 NormalText(
+                      //                                     label:
+                      //                                         'Contact Number',
+                      //                                     fontSize: 12,
+                      //                                     color: Colors.black),
+                      //                                 TextformfieldWidget(
+                      //                                   label: 'Contact Number',
+                      //                                   textFieldController:
+                      //                                       _contactNumberController,
+                      //                                 ),
+                      //                                 const SizedBox(
+                      //                                   height: 20,
+                      //                                 ),
+                      //                                 NormalText(
+                      //                                     label: 'Department',
+                      //                                     fontSize: 12,
+                      //                                     color: Colors.black),
+                      //                                 TextformfieldWidget(
+                      //                                   label: 'Department',
+                      //                                   textFieldController:
+                      //                                       courseController,
+                      //                                 ),
+                      //                                 const SizedBox(
+                      //                                   height: 20,
+                      //                                 ),
+                      //                                 NormalText(
+                      //                                     label: 'Email',
+                      //                                     fontSize: 12,
+                      //                                     color: Colors.black),
+                      //                                 TextformfieldWidget(
+                      //                                     isForStudentReg:
+                      //                                         false,
+                      //                                     prefixIcon:
+                      //                                         const Icon(
+                      //                                             Icons.email),
+                      //                                     label: 'Email',
+                      //                                     textFieldController:
+                      //                                         _emailController),
+                      //                                 const SizedBox(
+                      //                                   height: 20,
+                      //                                 ),
+                      //                                 NormalText(
+                      //                                     label: 'Password',
+                      //                                     fontSize: 12,
+                      //                                     color: Colors.black),
+                      //                                 TextformfieldWidget(
+                      //                                     prefixIcon:
+                      //                                         const Icon(
+                      //                                             Icons.lock),
+                      //                                     label: 'Password',
+                      //                                     textFieldController:
+                      //                                         _passwordController),
+                      //                                 const SizedBox(
+                      //                                   height: 50,
+                      //                                 ),
+                      //                                 Center(
+                      //                                   child: MaterialButton(
+                      //                                       minWidth: 300,
+                      //                                       color: primary,
+                      //                                       shape: RoundedRectangleBorder(
+                      //                                           borderRadius:
+                      //                                               BorderRadius
+                      //                                                   .circular(
+                      //                                                       100)),
+                      //                                       onPressed:
+                      //                                           (() async {
+                      //                                         if (signupformKey
+                      //                                                 .currentState!
+                      //                                                 .validate() &&
+                      //                                             _emailController
+                      //                                                 .text
+                      //                                                 .contains(
+                      //                                                     'buksu.edu.ph')) {
+                      //                                           await FirebaseAuth
+                      //                                               .instance
+                      //                                               .createUserWithEmailAndPassword(
+                      //                                                   email: _emailController
+                      //                                                       .text
+                      //                                                       .trim(),
+                      //                                                   password: _passwordController
+                      //                                                       .text
+                      //                                                       .trim())
+                      //                                               .then(
+                      //                                                   (value) async {
+                      //                                             UserRepository().addUser(
+                      //                                                 _firstNameController
+                      //                                                     .text,
+                      //                                                 _middleNameController
+                      //                                                     .text,
+                      //                                                 _surNameController
+                      //                                                     .text,
+                      //                                                 _contactNumberController
+                      //                                                     .text,
+                      //                                                 _emailController
+                      //                                                     .text,
+                      //                                                 _passwordController
+                      //                                                     .text,
+                      //                                                 value
+                      //                                                     .user!
+                      //                                                     .uid,
+                      //                                                 courseController
+                      //                                                     .text);
+                      //                                           });
+
+                      //                                           Navigator.of(
+                      //                                                   context)
+                      //                                               .pop();
+                      //                                           _firstNameController
+                      //                                               .clear();
+                      //                                           _middleNameController
+                      //                                               .clear();
+                      //                                           _surNameController
+                      //                                               .clear();
+                      //                                           _contactNumberController
+                      //                                               .clear();
+                      //                                           _emailController
+                      //                                               .clear();
+                      //                                           _passwordController
+                      //                                               .clear();
+                      //                                           courseController
+                      //                                               .clear();
+                      //                                           ScaffoldMessenger.of(
+                      //                                                   context)
+                      //                                               .showSnackBar(
+                      //                                             const SnackBar(
+                      //                                               duration: Duration(
+                      //                                                   seconds:
+                      //                                                       5),
+                      //                                               content: Text(
+                      //                                                   'Instructor Registered Succesfully!'),
+                      //                                             ),
+                      //                                           );
+
+                      //                                           // Navigator.of(context).push(MaterialPageRoute(
+                      //                                           //     builder: (context) => LoginPage()));
+                      //                                         }
+                      //                                       }),
+                      //                                       child: Padding(
+                      //                                         padding:
+                      //                                             const EdgeInsets
+                      //                                                 .all(8.0),
+                      //                                         child: NormalText(
+                      //                                             label:
+                      //                                                 'Register Instructor',
+                      //                                             fontSize: 24,
+                      //                                             color: Colors
+                      //                                                 .white),
+                      //                                       )),
+                      //                                 ),
+                      //                                 const SizedBox(
+                      //                                   height: 30,
+                      //                                 ),
+                      //                               ],
+                      //                             ),
+                      //                           ),
+                      //                         ),
+                      //                       ),
+                      //                     ),
+                      //                   ),
+                      //                 ),
+                      //               );
+                      //             }));
+                      //       }),
+                      //       child: NormalText(
+                      //           label: 'Add Instructor',
+                      //           fontSize: 12,
+                      //           color: Colors.white)),
+                      // ),
                       const SizedBox(
-                        width: 20,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 50),
-                        child: MaterialButton(
-                            height: 40,
-                            minWidth: 120,
-                            color: primary,
-                            onPressed: (() {
-                              showDialog(
-                                  context: context,
-                                  builder: ((context) {
-                                    return Dialog(
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(
-                                            right: 0, bottom: 0),
-                                        child: Container(
-                                          height: 550,
-                                          width: 400,
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(20),
-                                              color: Colors.grey[100]),
-                                          child: Padding(
-                                            padding: const EdgeInsets.fromLTRB(
-                                                30, 10, 30, 10),
-                                            child: SingleChildScrollView(
-                                              child: Form(
-                                                key: signupformKey,
-                                                child: Center(
-                                                  child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      const SizedBox(
-                                                        height: 20,
-                                                      ),
-                                                      Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
-                                                        children: [
-                                                          BoldText(
-                                                              label:
-                                                                  'Registration',
-                                                              fontSize: 18,
-                                                              color: primary),
-                                                          IconButton(
-                                                              onPressed: (() {
-                                                                Navigator.of(
-                                                                        context)
-                                                                    .pop();
-                                                              }),
-                                                              icon: const Icon(
-                                                                Icons.close,
-                                                                color:
-                                                                    Colors.red,
-                                                              ))
-                                                        ],
-                                                      ),
-                                                      const SizedBox(
-                                                        height: 10,
-                                                      ),
-                                                      NormalText(
-                                                          label:
-                                                              'Create instructor account',
-                                                          fontSize: 14,
-                                                          color: Colors.black),
-                                                      const SizedBox(
-                                                        height: 20,
-                                                      ),
-                                                      NormalText(
-                                                          label: 'First Name',
-                                                          fontSize: 12,
-                                                          color: Colors.black),
-                                                      TextformfieldWidget(
-                                                        label: 'First name',
-                                                        textFieldController:
-                                                            _firstNameController,
-                                                      ),
-                                                      NormalText(
-                                                          label: 'Middle Name',
-                                                          fontSize: 12,
-                                                          color: Colors.black),
-                                                      const SizedBox(
-                                                        height: 20,
-                                                      ),
-                                                      TextformfieldWidget(
-                                                        label: 'Middle Name',
-                                                        textFieldController:
-                                                            _middleNameController,
-                                                      ),
-                                                      const SizedBox(
-                                                        height: 20,
-                                                      ),
-                                                      NormalText(
-                                                          label: 'Surname',
-                                                          fontSize: 12,
-                                                          color: Colors.black),
-                                                      TextformfieldWidget(
-                                                        label: 'Surname',
-                                                        textFieldController:
-                                                            _surNameController,
-                                                      ),
-                                                      const SizedBox(
-                                                        height: 20,
-                                                      ),
-                                                      NormalText(
-                                                          label:
-                                                              'Contact Number',
-                                                          fontSize: 12,
-                                                          color: Colors.black),
-                                                      TextformfieldWidget(
-                                                        label: 'Contact Number',
-                                                        textFieldController:
-                                                            _contactNumberController,
-                                                      ),
-                                                      const SizedBox(
-                                                        height: 20,
-                                                      ),
-                                                      NormalText(
-                                                          label: 'Department',
-                                                          fontSize: 12,
-                                                          color: Colors.black),
-                                                      TextformfieldWidget(
-                                                        label: 'Department',
-                                                        textFieldController:
-                                                            courseController,
-                                                      ),
-                                                      const SizedBox(
-                                                        height: 20,
-                                                      ),
-                                                      NormalText(
-                                                          label: 'Email',
-                                                          fontSize: 12,
-                                                          color: Colors.black),
-                                                      TextformfieldWidget(
-                                                          isForStudentReg:
-                                                              false,
-                                                          prefixIcon:
-                                                              const Icon(
-                                                                  Icons.email),
-                                                          label: 'Email',
-                                                          textFieldController:
-                                                              _emailController),
-                                                      const SizedBox(
-                                                        height: 20,
-                                                      ),
-                                                      NormalText(
-                                                          label: 'Password',
-                                                          fontSize: 12,
-                                                          color: Colors.black),
-                                                      TextformfieldWidget(
-                                                          prefixIcon:
-                                                              const Icon(
-                                                                  Icons.lock),
-                                                          label: 'Password',
-                                                          textFieldController:
-                                                              _passwordController),
-                                                      const SizedBox(
-                                                        height: 50,
-                                                      ),
-                                                      Center(
-                                                        child: MaterialButton(
-                                                            minWidth: 300,
-                                                            color: primary,
-                                                            shape: RoundedRectangleBorder(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            100)),
-                                                            onPressed:
-                                                                (() async {
-                                                              if (signupformKey
-                                                                      .currentState!
-                                                                      .validate() &&
-                                                                  _emailController
-                                                                      .text
-                                                                      .contains(
-                                                                          'buksu.edu.ph')) {
-                                                                await FirebaseAuth
-                                                                    .instance
-                                                                    .createUserWithEmailAndPassword(
-                                                                        email: _emailController
-                                                                            .text
-                                                                            .trim(),
-                                                                        password: _passwordController
-                                                                            .text
-                                                                            .trim())
-                                                                    .then(
-                                                                        (value) async {
-                                                                  UserRepository().addUser(
-                                                                      _firstNameController
-                                                                          .text,
-                                                                      _middleNameController
-                                                                          .text,
-                                                                      _surNameController
-                                                                          .text,
-                                                                      _contactNumberController
-                                                                          .text,
-                                                                      _emailController
-                                                                          .text,
-                                                                      _passwordController
-                                                                          .text,
-                                                                      value
-                                                                          .user!
-                                                                          .uid,
-                                                                      courseController
-                                                                          .text);
-                                                                });
-
-                                                                Navigator.of(
-                                                                        context)
-                                                                    .pop();
-                                                                _firstNameController
-                                                                    .clear();
-                                                                _middleNameController
-                                                                    .clear();
-                                                                _surNameController
-                                                                    .clear();
-                                                                _contactNumberController
-                                                                    .clear();
-                                                                _emailController
-                                                                    .clear();
-                                                                _passwordController
-                                                                    .clear();
-                                                                courseController
-                                                                    .clear();
-                                                                ScaffoldMessenger.of(
-                                                                        context)
-                                                                    .showSnackBar(
-                                                                  const SnackBar(
-                                                                    duration: Duration(
-                                                                        seconds:
-                                                                            5),
-                                                                    content: Text(
-                                                                        'Instructor Registered Succesfully!'),
-                                                                  ),
-                                                                );
-
-                                                                // Navigator.of(context).push(MaterialPageRoute(
-                                                                //     builder: (context) => LoginPage()));
-                                                              }
-                                                            }),
-                                                            child: Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                      .all(8.0),
-                                                              child: NormalText(
-                                                                  label:
-                                                                      'Register Instructor',
-                                                                  fontSize: 24,
-                                                                  color: Colors
-                                                                      .white),
-                                                            )),
-                                                      ),
-                                                      const SizedBox(
-                                                        height: 30,
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    );
-                                  }));
-                            }),
-                            child: NormalText(
-                                label: 'Add Instructor',
-                                fontSize: 12,
-                                color: Colors.white)),
-                      ),
-                      const SizedBox(
-                        width: 30,
+                        width: 100,
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 10),
@@ -1121,11 +1117,11 @@ class _ReportTabState extends State<UsersPage> {
                                                       fontSize: 14,
                                                       color: Colors.white)),
 
-                                              DataColumn(
-                                                  label: BoldText(
-                                                      label: '',
-                                                      fontSize: 14,
-                                                      color: Colors.white)),
+                                              // DataColumn(
+                                              //     label: BoldText(
+                                              //         label: '',
+                                              //         fontSize: 14,
+                                              //         color: Colors.white)),
                                             ],
 
                                             rows: [
@@ -1172,122 +1168,122 @@ class _ReportTabState extends State<UsersPage> {
                                                             color:
                                                                 Colors.black),
                                                       ),
-                                                      DataCell(
-                                                        SizedBox(
-                                                          child: Row(
-                                                            children: [
-                                                              // MaterialButton(
-                                                              //     color: Colors.blue,
-                                                              //     child: NormalText(
-                                                              //         label: 'Update',
-                                                              //         fontSize: 12,
-                                                              //         color:
-                                                              //             Colors.white),
-                                                              //     onPressed: (() {})),
+                                                      // DataCell(
+                                                      //   SizedBox(
+                                                      //     child: Row(
+                                                      //       children: [
+                                                      //         // MaterialButton(
+                                                      //         //     color: Colors.blue,
+                                                      //         //     child: NormalText(
+                                                      //         //         label: 'Update',
+                                                      //         //         fontSize: 12,
+                                                      //         //         color:
+                                                      //         //             Colors.white),
+                                                      //         //     onPressed: (() {})),
 
-                                                              MaterialButton(
-                                                                  color: Colors
-                                                                      .blue,
-                                                                  onPressed:
-                                                                      (() {
-                                                                    showDialog(
-                                                                        context:
-                                                                            context,
-                                                                        builder:
-                                                                            ((context) {
-                                                                          return Dialog(
-                                                                            child:
-                                                                                SizedBox(
-                                                                              height: 200,
-                                                                              child: Padding(
-                                                                                padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                                                                                child: SizedBox(
-                                                                                  width: 200,
-                                                                                  child: Column(
-                                                                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                                                                    mainAxisAlignment: MainAxisAlignment.center,
-                                                                                    children: [
-                                                                                      NormalText(label: 'New Department', fontSize: 12, color: Colors.black),
-                                                                                      const SizedBox(
-                                                                                        height: 10,
-                                                                                      ),
-                                                                                      TextformfieldWidget(
-                                                                                        label: 'Enter Department',
-                                                                                        textFieldController: newDep,
-                                                                                      ),
-                                                                                      const SizedBox(
-                                                                                        height: 20,
-                                                                                      ),
-                                                                                      Align(
-                                                                                        alignment: Alignment.bottomRight,
-                                                                                        child: MaterialButton(
-                                                                                            color: Colors.blue,
-                                                                                            onPressed: (() {
-                                                                                              FirebaseFirestore.instance.collection('CONSULTATION-USERS').doc(data.docs[i].id).update({
-                                                                                                'department': newDep.text,
-                                                                                              });
-                                                                                              Navigator.pop(context);
-                                                                                            }),
-                                                                                            child: NormalText(label: 'Update', fontSize: 12, color: Colors.white)),
-                                                                                      )
-                                                                                    ],
-                                                                                  ),
-                                                                                ),
-                                                                              ),
-                                                                            ),
-                                                                          );
-                                                                        }));
-                                                                    // FirebaseFirestore
-                                                                    //     .instance
-                                                                    //     .collection(
-                                                                    //         'CONSULTATION-USERS')
-                                                                    //     .doc(data
-                                                                    //         .docs[i]
-                                                                    //         .id)
-                                                                    //     .update({
-                                                                    //   'status':
-                                                                    //       'Inactive',
-                                                                    // });
-                                                                  }),
-                                                                  child: NormalText(
-                                                                      label:
-                                                                          'Update',
-                                                                      fontSize:
-                                                                          12,
-                                                                      color: Colors
-                                                                          .white)),
+                                                      //         MaterialButton(
+                                                      //             color: Colors
+                                                      //                 .blue,
+                                                      //             onPressed:
+                                                      //                 (() {
+                                                      //               showDialog(
+                                                      //                   context:
+                                                      //                       context,
+                                                      //                   builder:
+                                                      //                       ((context) {
+                                                      //                     return Dialog(
+                                                      //                       child:
+                                                      //                           SizedBox(
+                                                      //                         height: 200,
+                                                      //                         child: Padding(
+                                                      //                           padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                                                      //                           child: SizedBox(
+                                                      //                             width: 200,
+                                                      //                             child: Column(
+                                                      //                               crossAxisAlignment: CrossAxisAlignment.start,
+                                                      //                               mainAxisAlignment: MainAxisAlignment.center,
+                                                      //                               children: [
+                                                      //                                 NormalText(label: 'New Department', fontSize: 12, color: Colors.black),
+                                                      //                                 const SizedBox(
+                                                      //                                   height: 10,
+                                                      //                                 ),
+                                                      //                                 TextformfieldWidget(
+                                                      //                                   label: 'Enter Department',
+                                                      //                                   textFieldController: newDep,
+                                                      //                                 ),
+                                                      //                                 const SizedBox(
+                                                      //                                   height: 20,
+                                                      //                                 ),
+                                                      //                                 Align(
+                                                      //                                   alignment: Alignment.bottomRight,
+                                                      //                                   child: MaterialButton(
+                                                      //                                       color: Colors.blue,
+                                                      //                                       onPressed: (() {
+                                                      //                                         FirebaseFirestore.instance.collection('CONSULTATION-USERS').doc(data.docs[i].id).update({
+                                                      //                                           'department': newDep.text,
+                                                      //                                         });
+                                                      //                                         Navigator.pop(context);
+                                                      //                                       }),
+                                                      //                                       child: NormalText(label: 'Update', fontSize: 12, color: Colors.white)),
+                                                      //                                 )
+                                                      //                               ],
+                                                      //                             ),
+                                                      //                           ),
+                                                      //                         ),
+                                                      //                       ),
+                                                      //                     );
+                                                      //                   }));
+                                                      //               // FirebaseFirestore
+                                                      //               //     .instance
+                                                      //               //     .collection(
+                                                      //               //         'CONSULTATION-USERS')
+                                                      //               //     .doc(data
+                                                      //               //         .docs[i]
+                                                      //               //         .id)
+                                                      //               //     .update({
+                                                      //               //   'status':
+                                                      //               //       'Inactive',
+                                                      //               // });
+                                                      //             }),
+                                                      //             child: NormalText(
+                                                      //                 label:
+                                                      //                     'Update',
+                                                      //                 fontSize:
+                                                      //                     12,
+                                                      //                 color: Colors
+                                                      //                     .white)),
 
-                                                              const SizedBox(
-                                                                width: 20,
-                                                              ),
-                                                              MaterialButton(
-                                                                  color: Colors
-                                                                      .red,
-                                                                  onPressed:
-                                                                      (() async {
-                                                                    await FirebaseFirestore
-                                                                        .instance
-                                                                        .collection(
-                                                                            'CONSULTATION-USERS')
-                                                                        .doc(data
-                                                                            .docs[i]
-                                                                            .id)
-                                                                        .update({
-                                                                      'status':
-                                                                          'Inactive',
-                                                                    });
-                                                                  }),
-                                                                  child: NormalText(
-                                                                      label:
-                                                                          'Delete',
-                                                                      fontSize:
-                                                                          12,
-                                                                      color: Colors
-                                                                          .white))
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ),
+                                                      //         const SizedBox(
+                                                      //           width: 20,
+                                                      //         ),
+                                                      //         MaterialButton(
+                                                      //             color: Colors
+                                                      //                 .red,
+                                                      //             onPressed:
+                                                      //                 (() async {
+                                                      //               await FirebaseFirestore
+                                                      //                   .instance
+                                                      //                   .collection(
+                                                      //                       'CONSULTATION-USERS')
+                                                      //                   .doc(data
+                                                      //                       .docs[i]
+                                                      //                       .id)
+                                                      //                   .update({
+                                                      //                 'status':
+                                                      //                     'Inactive',
+                                                      //               });
+                                                      //             }),
+                                                      //             child: NormalText(
+                                                      //                 label:
+                                                      //                     'Delete',
+                                                      //                 fontSize:
+                                                      //                     12,
+                                                      //                 color: Colors
+                                                      //                     .white))
+                                                      //       ],
+                                                      //     ),
+                                                      //   ),
+                                                      // ),
                                                     ]),
                                             ],
                                           ),
@@ -1337,11 +1333,11 @@ class _ReportTabState extends State<UsersPage> {
                                                       fontSize: 14,
                                                       color: Colors.white)),
 
-                                              DataColumn(
-                                                  label: BoldText(
-                                                      label: '',
-                                                      fontSize: 14,
-                                                      color: Colors.white)),
+                                              // DataColumn(
+                                              //     label: BoldText(
+                                              //         label: '',
+                                              //         fontSize: 14,
+                                              //         color: Colors.white)),
                                             ],
 
                                             rows: [
@@ -1393,334 +1389,334 @@ class _ReportTabState extends State<UsersPage> {
                                                             color:
                                                                 Colors.black),
                                                       ),
-                                                      DataCell(
-                                                        SizedBox(
-                                                          child: Row(
-                                                            children: [
-                                                              // MaterialButton(
-                                                              //     color: Colors.blue,
-                                                              //     child: NormalText(
-                                                              //         label: 'Update',
-                                                              //         fontSize: 12,
-                                                              //         color:
-                                                              //             Colors.white),
-                                                              //     onPressed: (() {})),
-                                                              PopupMenuButton(
-                                                                tooltip:
-                                                                    'Update User Info',
-                                                                icon:
-                                                                    const Icon(
-                                                                  Icons
-                                                                      .person_add_alt_outlined,
-                                                                  color: Colors
-                                                                      .blue,
-                                                                ),
-                                                                // child: MaterialButton(
-                                                                //     color: Colors.blue,
-                                                                //     child: NormalText(
-                                                                //         label: 'Update',
-                                                                //         fontSize: 12,
-                                                                //         color:
-                                                                //             Colors.white),
-                                                                //     onPressed: (() {
-                                                                //       // FirebaseFirestore
-                                                                //       //     .instance
-                                                                //       //     .collection(
-                                                                //       //         'Users')
-                                                                //       //     .doc(data
-                                                                //       //         .docs[index]
-                                                                //       //         .id)
-                                                                //       //     .update({
-                                                                //       //   'status':
-                                                                //       //       'Deleted',
-                                                                //       // });
-                                                                //     })),
-                                                                itemBuilder:
-                                                                    (context) {
-                                                                  return [
-                                                                    PopupMenuItem(
-                                                                      onTap:
-                                                                          (() {
-                                                                        showDialog(
-                                                                            context:
-                                                                                context,
-                                                                            builder:
-                                                                                ((context) {
-                                                                              return Dialog(
-                                                                                child: SizedBox(
-                                                                                  height: 200,
-                                                                                  child: Padding(
-                                                                                    padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
-                                                                                    child: Column(
-                                                                                      mainAxisAlignment: MainAxisAlignment.center,
-                                                                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                                                                      children: [
-                                                                                        NormalText(label: 'Choose Course', fontSize: 14, color: Colors.black),
-                                                                                        const SizedBox(
-                                                                                          height: 20,
-                                                                                        ),
-                                                                                        SizedBox(
-                                                                                          width: 220,
-                                                                                          child: Row(
-                                                                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                                            children: [
-                                                                                              MaterialButton(
-                                                                                                  color: Colors.blue,
-                                                                                                  onPressed: (() {
-                                                                                                    FirebaseFirestore.instance.collection('Users').doc(data.docs[i].id).update({
-                                                                                                      'course': 'Automotive',
-                                                                                                    });
-                                                                                                    Navigator.of(context).pop();
-                                                                                                  }),
-                                                                                                  child: NormalText(label: 'Automotive', fontSize: 12, color: Colors.white)),
-                                                                                              MaterialButton(
-                                                                                                  color: Colors.blue,
-                                                                                                  onPressed: (() {
-                                                                                                    FirebaseFirestore.instance.collection('Users').doc(data.docs[i].id).update({
-                                                                                                      'course': 'Food Technology',
-                                                                                                    });
-                                                                                                    Navigator.of(context).pop();
-                                                                                                  }),
-                                                                                                  child: NormalText(label: 'Food Technology', fontSize: 12, color: Colors.white)),
-                                                                                            ],
-                                                                                          ),
-                                                                                        ),
-                                                                                        const SizedBox(
-                                                                                          height: 10,
-                                                                                        ),
-                                                                                        SizedBox(
-                                                                                          width: 410,
-                                                                                          child: Row(
-                                                                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                                            children: [
-                                                                                              MaterialButton(
-                                                                                                  color: Colors.blue,
-                                                                                                  onPressed: (() {
-                                                                                                    FirebaseFirestore.instance.collection('Users').doc(data.docs[i].id).update({
-                                                                                                      'course': 'Electronic Technology',
-                                                                                                    });
-                                                                                                    Navigator.of(context).pop();
-                                                                                                  }),
-                                                                                                  child: NormalText(label: 'Electronic Technology', fontSize: 12, color: Colors.white)),
-                                                                                              MaterialButton(
-                                                                                                  color: Colors.blue,
-                                                                                                  onPressed: (() {
-                                                                                                    FirebaseFirestore.instance.collection('Users').doc(data.docs[i].id).update({
-                                                                                                      'course': 'Entertainment and Multimedia Computing',
-                                                                                                    });
-                                                                                                    Navigator.of(context).pop();
-                                                                                                  }),
-                                                                                                  child: NormalText(label: 'Entertainment and Multimedia Computing', fontSize: 12, color: Colors.white)),
-                                                                                            ],
-                                                                                          ),
-                                                                                        ),
-                                                                                        const SizedBox(
-                                                                                          height: 10,
-                                                                                        ),
-                                                                                        MaterialButton(
-                                                                                            color: Colors.blue,
-                                                                                            onPressed: (() {
-                                                                                              FirebaseFirestore.instance.collection('Users').doc(data.docs[i].id).update({
-                                                                                                'course': 'Information Technology',
-                                                                                              });
-                                                                                              Navigator.of(context).pop();
-                                                                                            }),
-                                                                                            child: NormalText(label: 'Information Technology', fontSize: 12, color: Colors.white)),
-                                                                                      ],
-                                                                                    ),
-                                                                                  ),
-                                                                                ),
-                                                                              );
-                                                                            }));
-                                                                        showDialog(
-                                                                            context:
-                                                                                context,
-                                                                            builder:
-                                                                                ((context) {
-                                                                              return const Dialog(
-                                                                                child: SizedBox(
-                                                                                  height: 400,
-                                                                                ),
-                                                                              );
-                                                                            }));
-                                                                      }),
-                                                                      child:
-                                                                          ListTile(
-                                                                        title: NormalText(
-                                                                            label:
-                                                                                'Edit Course',
-                                                                            fontSize:
-                                                                                12,
-                                                                            color:
-                                                                                Colors.black),
-                                                                      ),
-                                                                    ),
-                                                                    PopupMenuItem(
-                                                                      onTap:
-                                                                          (() async {
-                                                                        showDialog(
-                                                                            context:
-                                                                                context,
-                                                                            builder:
-                                                                                ((context) {
-                                                                              return Dialog(
-                                                                                child: SizedBox(
-                                                                                  height: 400,
-                                                                                  child: Padding(
-                                                                                    padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-                                                                                    child: Column(
-                                                                                      mainAxisAlignment: MainAxisAlignment.center,
-                                                                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                                                                      children: [
-                                                                                        NormalText(label: 'Edit Year Level', fontSize: 12, color: Colors.black),
-                                                                                        const SizedBox(
-                                                                                          height: 20,
-                                                                                        ),
-                                                                                        SizedBox(
-                                                                                          width: 180,
-                                                                                          child: Row(
-                                                                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                                            children: [
-                                                                                              MaterialButton(
-                                                                                                  color: Colors.blue,
-                                                                                                  onPressed: (() {
-                                                                                                    FirebaseFirestore.instance.collection('Users').doc(data.docs[i].id).update({
-                                                                                                      'yearLevel': 'First Year',
-                                                                                                    });
-                                                                                                    Navigator.of(context).pop();
-                                                                                                  }),
-                                                                                                  child: NormalText(label: 'First Year', fontSize: 12, color: Colors.white)),
-                                                                                              MaterialButton(
-                                                                                                  color: Colors.blue,
-                                                                                                  onPressed: (() {
-                                                                                                    FirebaseFirestore.instance.collection('Users').doc(data.docs[i].id).update({
-                                                                                                      'yearLevel': 'Second Year',
-                                                                                                    });
-                                                                                                    Navigator.of(context).pop();
-                                                                                                  }),
-                                                                                                  child: NormalText(label: 'Second Year', fontSize: 12, color: Colors.white)),
-                                                                                            ],
-                                                                                          ),
-                                                                                        ),
-                                                                                        const SizedBox(
-                                                                                          height: 10,
-                                                                                        ),
-                                                                                        SizedBox(
-                                                                                          width: 180,
-                                                                                          child: Row(
-                                                                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                                            children: [
-                                                                                              MaterialButton(
-                                                                                                  color: Colors.blue,
-                                                                                                  onPressed: (() {
-                                                                                                    FirebaseFirestore.instance.collection('Users').doc(data.docs[i].id).update({
-                                                                                                      'yearLevel': 'Third Year',
-                                                                                                    });
-                                                                                                    Navigator.of(context).pop();
-                                                                                                  }),
-                                                                                                  child: NormalText(label: 'Third Year', fontSize: 12, color: Colors.white)),
-                                                                                              MaterialButton(
-                                                                                                  color: Colors.blue,
-                                                                                                  onPressed: (() {
-                                                                                                    FirebaseFirestore.instance.collection('Users').doc(data.docs[i].id).update({
-                                                                                                      'yearLevel': 'Fourth Year',
-                                                                                                    });
-                                                                                                    Navigator.of(context).pop();
-                                                                                                  }),
-                                                                                                  child: NormalText(label: 'Fourth Year', fontSize: 12, color: Colors.white)),
-                                                                                            ],
-                                                                                          ),
-                                                                                        ),
-                                                                                        const SizedBox(
-                                                                                          height: 10,
-                                                                                        ),
-                                                                                      ],
-                                                                                    ),
-                                                                                  ),
-                                                                                ),
-                                                                              );
-                                                                            }));
-                                                                        showDialog(
-                                                                            context:
-                                                                                context,
-                                                                            builder:
-                                                                                ((context) {
-                                                                              return const Dialog(
-                                                                                child: SizedBox(
-                                                                                  height: 400,
-                                                                                ),
-                                                                              );
-                                                                            }));
-                                                                      }),
-                                                                      child:
-                                                                          ListTile(
-                                                                        title: NormalText(
-                                                                            label:
-                                                                                'Edit Year Level',
-                                                                            fontSize:
-                                                                                12,
-                                                                            color:
-                                                                                Colors.black),
-                                                                      ),
-                                                                    ),
-                                                                  ];
-                                                                },
-                                                              ),
-                                                              const SizedBox(
-                                                                width: 20,
-                                                              ),
-                                                              MaterialButton(
-                                                                  color: Colors
-                                                                      .red,
-                                                                  onPressed:
-                                                                      (() {
-                                                                    showDialog(
-                                                                        barrierDismissible:
-                                                                            false,
-                                                                        context:
-                                                                            context,
-                                                                        builder:
-                                                                            ((context) {
-                                                                          return AlertDialog(
-                                                                            title:
-                                                                                const Text('Delete user?'),
-                                                                            content:
-                                                                                const Text('This action cannot be undone.'),
-                                                                            actions: <Widget>[
-                                                                              TextButton(
-                                                                                child: const Text('Cancel'),
-                                                                                onPressed: () {
-                                                                                  Navigator.of(context).pop(false);
-                                                                                },
-                                                                              ),
-                                                                              TextButton(
-                                                                                child: const Text('Delete'),
-                                                                                onPressed: () async {
-                                                                                  await FirebaseFirestore.instance.collection('Users').doc(data.docs[i].id).update({
-                                                                                    'status': 'Deleted',
-                                                                                  });
+                                                      // DataCell(
+                                                      //   SizedBox(
+                                                      //     child: Row(
+                                                      //       children: [
+                                                      //         // MaterialButton(
+                                                      //         //     color: Colors.blue,
+                                                      //         //     child: NormalText(
+                                                      //         //         label: 'Update',
+                                                      //         //         fontSize: 12,
+                                                      //         //         color:
+                                                      //         //             Colors.white),
+                                                      //         //     onPressed: (() {})),
+                                                      //         PopupMenuButton(
+                                                      //           tooltip:
+                                                      //               'Update User Info',
+                                                      //           icon:
+                                                      //               const Icon(
+                                                      //             Icons
+                                                      //                 .person_add_alt_outlined,
+                                                      //             color: Colors
+                                                      //                 .blue,
+                                                      //           ),
+                                                      //           // child: MaterialButton(
+                                                      //           //     color: Colors.blue,
+                                                      //           //     child: NormalText(
+                                                      //           //         label: 'Update',
+                                                      //           //         fontSize: 12,
+                                                      //           //         color:
+                                                      //           //             Colors.white),
+                                                      //           //     onPressed: (() {
+                                                      //           //       // FirebaseFirestore
+                                                      //           //       //     .instance
+                                                      //           //       //     .collection(
+                                                      //           //       //         'Users')
+                                                      //           //       //     .doc(data
+                                                      //           //       //         .docs[index]
+                                                      //           //       //         .id)
+                                                      //           //       //     .update({
+                                                      //           //       //   'status':
+                                                      //           //       //       'Deleted',
+                                                      //           //       // });
+                                                      //           //     })),
+                                                      //           itemBuilder:
+                                                      //               (context) {
+                                                      //             return [
+                                                      //               PopupMenuItem(
+                                                      //                 onTap:
+                                                      //                     (() {
+                                                      //                   showDialog(
+                                                      //                       context:
+                                                      //                           context,
+                                                      //                       builder:
+                                                      //                           ((context) {
+                                                      //                         return Dialog(
+                                                      //                           child: SizedBox(
+                                                      //                             height: 200,
+                                                      //                             child: Padding(
+                                                      //                               padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
+                                                      //                               child: Column(
+                                                      //                                 mainAxisAlignment: MainAxisAlignment.center,
+                                                      //                                 crossAxisAlignment: CrossAxisAlignment.start,
+                                                      //                                 children: [
+                                                      //                                   NormalText(label: 'Choose Course', fontSize: 14, color: Colors.black),
+                                                      //                                   const SizedBox(
+                                                      //                                     height: 20,
+                                                      //                                   ),
+                                                      //                                   SizedBox(
+                                                      //                                     width: 220,
+                                                      //                                     child: Row(
+                                                      //                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                      //                                       children: [
+                                                      //                                         MaterialButton(
+                                                      //                                             color: Colors.blue,
+                                                      //                                             onPressed: (() {
+                                                      //                                               FirebaseFirestore.instance.collection('Users').doc(data.docs[i].id).update({
+                                                      //                                                 'course': 'Automotive',
+                                                      //                                               });
+                                                      //                                               Navigator.of(context).pop();
+                                                      //                                             }),
+                                                      //                                             child: NormalText(label: 'Automotive', fontSize: 12, color: Colors.white)),
+                                                      //                                         MaterialButton(
+                                                      //                                             color: Colors.blue,
+                                                      //                                             onPressed: (() {
+                                                      //                                               FirebaseFirestore.instance.collection('Users').doc(data.docs[i].id).update({
+                                                      //                                                 'course': 'Food Technology',
+                                                      //                                               });
+                                                      //                                               Navigator.of(context).pop();
+                                                      //                                             }),
+                                                      //                                             child: NormalText(label: 'Food Technology', fontSize: 12, color: Colors.white)),
+                                                      //                                       ],
+                                                      //                                     ),
+                                                      //                                   ),
+                                                      //                                   const SizedBox(
+                                                      //                                     height: 10,
+                                                      //                                   ),
+                                                      //                                   SizedBox(
+                                                      //                                     width: 410,
+                                                      //                                     child: Row(
+                                                      //                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                      //                                       children: [
+                                                      //                                         MaterialButton(
+                                                      //                                             color: Colors.blue,
+                                                      //                                             onPressed: (() {
+                                                      //                                               FirebaseFirestore.instance.collection('Users').doc(data.docs[i].id).update({
+                                                      //                                                 'course': 'Electronic Technology',
+                                                      //                                               });
+                                                      //                                               Navigator.of(context).pop();
+                                                      //                                             }),
+                                                      //                                             child: NormalText(label: 'Electronic Technology', fontSize: 12, color: Colors.white)),
+                                                      //                                         MaterialButton(
+                                                      //                                             color: Colors.blue,
+                                                      //                                             onPressed: (() {
+                                                      //                                               FirebaseFirestore.instance.collection('Users').doc(data.docs[i].id).update({
+                                                      //                                                 'course': 'Entertainment and Multimedia Computing',
+                                                      //                                               });
+                                                      //                                               Navigator.of(context).pop();
+                                                      //                                             }),
+                                                      //                                             child: NormalText(label: 'Entertainment and Multimedia Computing', fontSize: 12, color: Colors.white)),
+                                                      //                                       ],
+                                                      //                                     ),
+                                                      //                                   ),
+                                                      //                                   const SizedBox(
+                                                      //                                     height: 10,
+                                                      //                                   ),
+                                                      //                                   MaterialButton(
+                                                      //                                       color: Colors.blue,
+                                                      //                                       onPressed: (() {
+                                                      //                                         FirebaseFirestore.instance.collection('Users').doc(data.docs[i].id).update({
+                                                      //                                           'course': 'Information Technology',
+                                                      //                                         });
+                                                      //                                         Navigator.of(context).pop();
+                                                      //                                       }),
+                                                      //                                       child: NormalText(label: 'Information Technology', fontSize: 12, color: Colors.white)),
+                                                      //                                 ],
+                                                      //                               ),
+                                                      //                             ),
+                                                      //                           ),
+                                                      //                         );
+                                                      //                       }));
+                                                      //                   showDialog(
+                                                      //                       context:
+                                                      //                           context,
+                                                      //                       builder:
+                                                      //                           ((context) {
+                                                      //                         return const Dialog(
+                                                      //                           child: SizedBox(
+                                                      //                             height: 400,
+                                                      //                           ),
+                                                      //                         );
+                                                      //                       }));
+                                                      //                 }),
+                                                      //                 child:
+                                                      //                     ListTile(
+                                                      //                   title: NormalText(
+                                                      //                       label:
+                                                      //                           'Edit Course',
+                                                      //                       fontSize:
+                                                      //                           12,
+                                                      //                       color:
+                                                      //                           Colors.black),
+                                                      //                 ),
+                                                      //               ),
+                                                      //               PopupMenuItem(
+                                                      //                 onTap:
+                                                      //                     (() async {
+                                                      //                   showDialog(
+                                                      //                       context:
+                                                      //                           context,
+                                                      //                       builder:
+                                                      //                           ((context) {
+                                                      //                         return Dialog(
+                                                      //                           child: SizedBox(
+                                                      //                             height: 400,
+                                                      //                             child: Padding(
+                                                      //                               padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+                                                      //                               child: Column(
+                                                      //                                 mainAxisAlignment: MainAxisAlignment.center,
+                                                      //                                 crossAxisAlignment: CrossAxisAlignment.start,
+                                                      //                                 children: [
+                                                      //                                   NormalText(label: 'Edit Year Level', fontSize: 12, color: Colors.black),
+                                                      //                                   const SizedBox(
+                                                      //                                     height: 20,
+                                                      //                                   ),
+                                                      //                                   SizedBox(
+                                                      //                                     width: 180,
+                                                      //                                     child: Row(
+                                                      //                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                      //                                       children: [
+                                                      //                                         MaterialButton(
+                                                      //                                             color: Colors.blue,
+                                                      //                                             onPressed: (() {
+                                                      //                                               FirebaseFirestore.instance.collection('Users').doc(data.docs[i].id).update({
+                                                      //                                                 'yearLevel': 'First Year',
+                                                      //                                               });
+                                                      //                                               Navigator.of(context).pop();
+                                                      //                                             }),
+                                                      //                                             child: NormalText(label: 'First Year', fontSize: 12, color: Colors.white)),
+                                                      //                                         MaterialButton(
+                                                      //                                             color: Colors.blue,
+                                                      //                                             onPressed: (() {
+                                                      //                                               FirebaseFirestore.instance.collection('Users').doc(data.docs[i].id).update({
+                                                      //                                                 'yearLevel': 'Second Year',
+                                                      //                                               });
+                                                      //                                               Navigator.of(context).pop();
+                                                      //                                             }),
+                                                      //                                             child: NormalText(label: 'Second Year', fontSize: 12, color: Colors.white)),
+                                                      //                                       ],
+                                                      //                                     ),
+                                                      //                                   ),
+                                                      //                                   const SizedBox(
+                                                      //                                     height: 10,
+                                                      //                                   ),
+                                                      //                                   SizedBox(
+                                                      //                                     width: 180,
+                                                      //                                     child: Row(
+                                                      //                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                      //                                       children: [
+                                                      //                                         MaterialButton(
+                                                      //                                             color: Colors.blue,
+                                                      //                                             onPressed: (() {
+                                                      //                                               FirebaseFirestore.instance.collection('Users').doc(data.docs[i].id).update({
+                                                      //                                                 'yearLevel': 'Third Year',
+                                                      //                                               });
+                                                      //                                               Navigator.of(context).pop();
+                                                      //                                             }),
+                                                      //                                             child: NormalText(label: 'Third Year', fontSize: 12, color: Colors.white)),
+                                                      //                                         MaterialButton(
+                                                      //                                             color: Colors.blue,
+                                                      //                                             onPressed: (() {
+                                                      //                                               FirebaseFirestore.instance.collection('Users').doc(data.docs[i].id).update({
+                                                      //                                                 'yearLevel': 'Fourth Year',
+                                                      //                                               });
+                                                      //                                               Navigator.of(context).pop();
+                                                      //                                             }),
+                                                      //                                             child: NormalText(label: 'Fourth Year', fontSize: 12, color: Colors.white)),
+                                                      //                                       ],
+                                                      //                                     ),
+                                                      //                                   ),
+                                                      //                                   const SizedBox(
+                                                      //                                     height: 10,
+                                                      //                                   ),
+                                                      //                                 ],
+                                                      //                               ),
+                                                      //                             ),
+                                                      //                           ),
+                                                      //                         );
+                                                      //                       }));
+                                                      //                   showDialog(
+                                                      //                       context:
+                                                      //                           context,
+                                                      //                       builder:
+                                                      //                           ((context) {
+                                                      //                         return const Dialog(
+                                                      //                           child: SizedBox(
+                                                      //                             height: 400,
+                                                      //                           ),
+                                                      //                         );
+                                                      //                       }));
+                                                      //                 }),
+                                                      //                 child:
+                                                      //                     ListTile(
+                                                      //                   title: NormalText(
+                                                      //                       label:
+                                                      //                           'Edit Year Level',
+                                                      //                       fontSize:
+                                                      //                           12,
+                                                      //                       color:
+                                                      //                           Colors.black),
+                                                      //                 ),
+                                                      //               ),
+                                                      //             ];
+                                                      //           },
+                                                      //         ),
+                                                      //         const SizedBox(
+                                                      //           width: 20,
+                                                      //         ),
+                                                      //         MaterialButton(
+                                                      //             color: Colors
+                                                      //                 .red,
+                                                      //             onPressed:
+                                                      //                 (() {
+                                                      //               showDialog(
+                                                      //                   barrierDismissible:
+                                                      //                       false,
+                                                      //                   context:
+                                                      //                       context,
+                                                      //                   builder:
+                                                      //                       ((context) {
+                                                      //                     return AlertDialog(
+                                                      //                       title:
+                                                      //                           const Text('Delete user?'),
+                                                      //                       content:
+                                                      //                           const Text('This action cannot be undone.'),
+                                                      //                       actions: <Widget>[
+                                                      //                         TextButton(
+                                                      //                           child: const Text('Cancel'),
+                                                      //                           onPressed: () {
+                                                      //                             Navigator.of(context).pop(false);
+                                                      //                           },
+                                                      //                         ),
+                                                      //                         TextButton(
+                                                      //                           child: const Text('Delete'),
+                                                      //                           onPressed: () async {
+                                                      //                             await FirebaseFirestore.instance.collection('Users').doc(data.docs[i].id).update({
+                                                      //                               'status': 'Deleted',
+                                                      //                             });
 
-                                                                                  if (!mounted) {
-                                                                                    return;
-                                                                                  }
-                                                                                  Navigator.of(context).pop(true);
-                                                                                },
-                                                                              ),
-                                                                            ],
-                                                                          );
-                                                                        }));
-                                                                  }),
-                                                                  child: NormalText(
-                                                                      label:
-                                                                          'Delete',
-                                                                      fontSize:
-                                                                          12,
-                                                                      color: Colors
-                                                                          .white))
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ),
+                                                      //                             if (!mounted) {
+                                                      //                               return;
+                                                      //                             }
+                                                      //                             Navigator.of(context).pop(true);
+                                                      //                           },
+                                                      //                         ),
+                                                      //                       ],
+                                                      //                     );
+                                                      //                   }));
+                                                      //             }),
+                                                      //             child: NormalText(
+                                                      //                 label:
+                                                      //                     'Delete',
+                                                      //                 fontSize:
+                                                      //                     12,
+                                                      //                 color: Colors
+                                                      //                     .white))
+                                                      //       ],
+                                                      //     ),
+                                                      //   ),
+                                                      // ),
                                                     ]),
                                             ],
                                           ),

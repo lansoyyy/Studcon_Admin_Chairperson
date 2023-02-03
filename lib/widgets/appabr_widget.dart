@@ -26,13 +26,14 @@ PreferredSizeWidget appbarWidget(PageController page) {
       const CircleAvatar(
         minRadius: 20,
         maxRadius: 20,
-        backgroundImage: NetworkImage('assets/images/dean.jpg'),
+        backgroundImage: NetworkImage('assets/images/bsu.png'),
       ),
       const SizedBox(
         width: 10,
       ),
       Center(
-          child: BoldText(label: 'ADMIN', fontSize: 18, color: Colors.black)),
+          child: BoldText(
+              label: 'CHAIRPERSON ADMIN', fontSize: 18, color: Colors.black)),
       const SizedBox(
         width: 10,
       ),
