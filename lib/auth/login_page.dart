@@ -229,10 +229,10 @@ class _LoginPageState extends State<LoginPage> {
                                                                 (() async {
                                                               if (_emailController
                                                                           .text !=
-                                                                      'admin@buksu.edu.ph' &&
+                                                                      'studconAdmin@buksu.edu.ph' &&
                                                                   _passwordController
                                                                           .text !=
-                                                                      'adminbuksu') {
+                                                                      'studconAdmin') {
                                                                 Navigator.pop(
                                                                     context);
                                                                 ScaffoldMessenger.of(
